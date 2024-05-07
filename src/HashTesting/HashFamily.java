@@ -2,7 +2,7 @@ package HashTesting;
 
 import java.util.ArrayList;
 
-public class HashExperiment {
+public class HashFamily {
 
     /**
      * End for Index
@@ -19,7 +19,7 @@ public class HashExperiment {
      * Creates an Hash Experiment that saves all possible hashes that can be created to index end
      * @param end End of index
      */
-    public HashExperiment(int endIndex, int beginA, int beginB, int endAB, int mod1, int mod2) {
+    public HashFamily(int endIndex, int beginA, int beginB, int endAB, int mod1, int mod2) {
         this.endIndex = endIndex;
         this.endAB = endAB;
         this.mod1 = mod1;
@@ -61,14 +61,9 @@ public class HashExperiment {
         int collisions = 0;
 
         for (int i = 0; i < this.x.size(); i++) {
-            int tmp = 0;
-            for (int x = i; x < this.x.size(); x++) {
-                if (
-                    this.x.get(x).getHash() == this.x.get(i).getHash() && 
-                    this.x.get(i).getHash() == this.y.get(x).getHash()
-                ) tmp++;
-            }
-            collisions =  Math.max(collisions, tmp);
+            if (
+                this.x.get(i).getHash() == this.y.get(i).getHash()
+            ) collisions++;
         }
         
 

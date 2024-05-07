@@ -9,19 +9,19 @@ public class HashTesting {
     /**
      * ArrayList where all experiments are stored
      */
-    private ArrayList<HashExperiment> experiments = new ArrayList<HashExperiment>();
+    private ArrayList<HashFamily> experiments = new ArrayList<HashFamily>();
 
-    public HashTesting(HashExperiment... experiments) {
-        for (HashExperiment experiment : experiments) this.experiments.add(experiment);
+    public HashTesting(HashFamily... experiments) {
+        for (HashFamily experiment : experiments) this.experiments.add(experiment);
     }
 
     public void test() {
         int index = 1;
-        for (HashExperiment experiment : experiments) {
+        for (HashFamily experiment : experiments) {
             try {
                 PrintWriter writer = new PrintWriter(("output-"+index+".txt"), "UTF-8");
 
-                experiment.fillAll();
+                if (experiment.x.size() < 1) experiment.fillAll();
                 int tableSize = experiment.x.size();
                 int collisions = experiment.calcCollisions();
                 double collisionsProbability = (double) collisions / tableSize;
