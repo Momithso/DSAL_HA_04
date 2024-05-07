@@ -3,6 +3,10 @@ import HashTesting.HashTesting;
 
 public class Main {
 
+    /**
+     * Test
+     * @param args
+     */
     public static void main(String[] args) {
     
         HashTesting test = new HashTesting(
