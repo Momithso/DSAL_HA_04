@@ -70,26 +70,84 @@ public class HashFamily {
         return collisions;
     }
 
+    /**
+     * Calculate Collisions
+     */
+    public int calcCollisions(ArrayList<CustomHash> x, ArrayList<CustomHash> y) {
+        int collisions = 0;
+
+        for (int i = 0; i < x.size(); i++) {
+            if (
+                x.get(i).getHash() == y.get(i).getHash()
+            ) collisions++;
+        }
+        
+
+        return collisions;
+    }
+
+    // @Override
+    // public String toString() {
+    //     String res = "";
+    //     res += "_____________________________\n";
+    //     res += "a  b  h_{a,b}(x)  h_{a,b}(y) \n";
+    //     res += "_____________________________\n";
+
+    //     int tmp = 0;
+    //     for (int i = 0; i < x.size(); i++) {
+    //         CustomHash x = this.x.get(i);
+    //         CustomHash y = this.y.get(i);
+
+    //         if (tmp != y.val) {
+    //             res += "_____________________________\n";
+    //             res += "a  b          "+x.val+"           "+y.val+"  \n";
+    //             res += "_____________________________\n";
+    //         }
+
+    //         res += x.a+"  "+x.b+"            "+x.getHash()+"          "+y.getHash()+"  \n";
+    //         tmp = y.val;
+    //     }
+
+    //     for (CustomHash hash : this.x) {
+    //         System.out.println(hash.val);
+    //     }
+        
+    //     return res;
+    // }
+
     @Override
     public String toString() {
         String res = "";
         res += "_____________________________\n";
-        res += "a  b  h_{a,b}(x)  h_{a,b}(y) \n";
+        res += "x  y  propbability \n";
         res += "_____________________________\n";
 
-        int tmp = 0;
-        for (int i = 0; i < x.size(); i++) {
-            CustomHash x = this.x.get(i);
-            CustomHash y = this.y.get(i);
+        ArrayList<CustomHash> x = new ArrayList<CustomHash>();
+        ArrayList<CustomHash> y = new ArrayList<CustomHash>();
 
-            if (tmp != y.val) {
-                res += "_____________________________\n";
-                res += "a  b          "+x.val+"           "+y.val+"  \n";
-                res += "_____________________________\n";
-            }
+        for (int i = 0; i < this.x.size(); i++) {
+            int start = i;
+            int tmp = i;
 
-            res += x.a+"  "+x.b+"            "+x.getHash()+"          "+y.getHash()+"  \n";
-            tmp = y.val;
+            do {
+                x.add(this.x.get(tmp));
+                y.add(this.y.get(tmp));
+                tmp++;
+                if (this.x.get(tmp).a == endAB-1 && this.x.get(tmp).b == endAB-1) {
+                    x.add(this.x.get(tmp));
+                    y.add(this.y.get(tmp));
+                    break;
+                };
+            } while(true);
+
+            double collisions = this.calcCollisions(x, y);
+            double probability = Math.round((double) (collisions / x.size())*100.0) / 100.0;
+
+            res += this.x.get(start).val+"  "+this.y.get(start).val+"  "+probability+"  \n";
+
+            i = tmp;
+            x.clear();
+            y.clear();
         }
         
         return res;
